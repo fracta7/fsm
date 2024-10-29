@@ -58,9 +58,10 @@ void draw_borders() {
 }
 
 void draw_field(GameInfo_t state) {
-  int shift_x = 2;
-  int shift_y = 1;
   if (state.field != NULL) {
+    int shift_x = 2;
+    int shift_y = 1;
+
     for (int i = 0; i < 20; i++) {
       for (int j = 0; j < 10; j++) {
         if (state.field[i][j]) {
