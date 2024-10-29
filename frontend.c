@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "game.h"
+#include "frontend.h"
 
 void draw_main_board_borders() {
   attron(COLOR_PAIR(1));
