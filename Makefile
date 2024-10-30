@@ -1,16 +1,16 @@
 CC = gcc
 FL = -Wall -Werror -Wextra -std=c11 -lncurses
 
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+
 all: re main
 
-main: main.o frontend.o
-	$(CC) $(FL) main.o frontend.o -o main -lncurses
+main: $(OBJ)
+	$(CC) $(FL) $(OBJ) -o main -lncurses
 
-main.o: main.c frontend.h
-	$(CC) $(FL) -c main.c -o main.o -lncurses
-
-frontend.o: frontend.c frontend.h
-	$(CC) $(FL) -c frontend.c -o frontend.o
+%.o: %.c
+	$(CC) $(FL) -c $< -o $@ -lncurses
 
 re: clean
 

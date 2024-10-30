@@ -1,8 +1,10 @@
+#include "frontend.h"
+
 #include <ncurses.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "frontend.h"
+#include "fsm.h"
 
 void draw_main_board_borders() {
   attron(COLOR_PAIR(1));
@@ -132,50 +134,7 @@ void draw_pause() {
   attroff(COLOR_PAIR(4));
 }
 
-bool handle_input(UserAction_t *event) {
-  bool key_pressed = true;
-  int ch = getch();  // Non-blocking input check
-
-  // Process input
-  switch (ch) {
-    case KEY_UP:
-      *event = Up;
-      break;
-    case KEY_DOWN:
-      *event = Down;
-      break;
-    case KEY_LEFT:
-      *event = Left;
-      break;
-    case KEY_RIGHT:
-      *event = Right;
-      break;
-    case 'q':
-    case 'Q':
-      *event = Terminate;
-      break;
-    case 'p':
-    case 'P':
-      *event = Pause;
-      break;
-    case '\n':
-      *event = Action;
-      break;
-    case 's':
-    case 'S':
-      *event = Start;
-      break;
-    case ERR:
-    default:
-      key_pressed = false;
-      break;
-  }
-
-  refresh();
-  return key_pressed;
-}
-
-bool draw_state(GameInfo_t state, UserAction_t *event) {
+void draw_state(GameInfo_t state, UserAction_t event) {
   static bool paused = false;
   // Initialize ncurses
   initscr();  // Start ncurses mode
@@ -197,15 +156,12 @@ bool draw_state(GameInfo_t state, UserAction_t *event) {
   draw_score(state);
   draw_field(state);
 
-  bool result = handle_input(event);
-  if (result && *event == Pause) {
+  if (event == Pause) {
     paused = !paused;
     if (!paused) {
       mvprintw(11, 8, "      ");
     }
   }
-  if (paused) draw_pause();
+  if (state.pause) draw_pause();
   refresh();
-
-  return result;
 }
