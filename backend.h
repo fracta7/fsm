@@ -1,5 +1,7 @@
 #ifndef BACKEND_H_
 #define BACKEND_H_
+#include <stdlib.h>
+
 #include "controller.h"
 #include "frontend.h"
 #include "fsm.h"

@@ -1,7 +1,6 @@
 #ifndef FSM_H_
 #define FSM_H_
 #include <stdbool.h>
-#include <stdlib.h>
 
 typedef struct {
   int **field;
