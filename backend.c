@@ -68,6 +68,8 @@ void handle_input(bool key_pressed, int *running, UserAction_t event,
       case Down:
       case Up:
       case Start:
+        update_state(state);
+        break;
       case Pause:
         if (state->pause)
           state->pause = 0;
