@@ -24,6 +24,9 @@ typedef enum {
   Action
 } UserAction_t;
 
-void game_loop();
+typedef void (*InputHandlerCallback)(bool key_pressed, int *running,
+                                     UserAction_t event, GameInfo_t *state);
+
+void game_loop(InputHandlerCallback callback);
 
 #endif  // FSM_H_
