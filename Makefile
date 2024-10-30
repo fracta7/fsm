@@ -1,5 +1,5 @@
 CC = gcc
-FL = -Wall -Werror -Wextra -std=c11 -lncurses
+FL = -Wall -Werror -Wextra -std=c11
 
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
@@ -10,7 +10,7 @@ main: $(OBJ)
 	$(CC) $(FL) $(OBJ) -o main -lncurses
 
 %.o: %.c
-	$(CC) $(FL) -c $< -o $@ -lncurses
+	$(CC) $(FL) -c $< -o $@
 
 re: clean
 
