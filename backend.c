@@ -25,6 +25,10 @@ void fill_field(GameInfo_t *state) {
   for (int i = 0; i < 5; i++) {
     state->field[18][i] = 1;
   }
+  state->field[18][5] = 2;
+  state->field[17][5] = 2;
+  state->field[16][5] = 2;
+  state->field[17][4] = 2;
 }
 
 void init_state(GameInfo_t *state) {
@@ -57,10 +61,14 @@ void update_state(GameInfo_t *state) {
 
 void handle_input(bool key_pressed, int *running, UserAction_t event,
                   GameInfo_t *state) {
+  static int game_ended = 0;
   if (key_pressed) {
     switch (event) {
       case Terminate:
-        *running = 0;
+        if (game_ended)
+          *running = 0;
+        else
+          game_ended = 1;
         break;
       case Action:
       case Left:
@@ -68,14 +76,16 @@ void handle_input(bool key_pressed, int *running, UserAction_t event,
       case Down:
       case Up:
       case Start:
-        update_state(state);
+        if (state->pause == 0) update_state(state);
         break;
       case Pause:
         if (state->pause)
           state->pause = 0;
         else
           state->pause = 1;
-        update_state(state);
+        if (state->pause == 0) {
+          update_state(state);
+        }
         break;
       default:
         break;

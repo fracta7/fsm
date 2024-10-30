@@ -18,10 +18,11 @@ void game_loop(InputHandlerCallback callback) {
   curs_set(FALSE);
 
   init_pair(1, COLOR_WHITE, COLOR_WHITE);  // Text white, background blue
-  init_pair(2, COLOR_BLUE, COLOR_BLUE);    // Text white, background blue
+  init_pair(2, COLOR_BLUE, COLOR_BLUE);    // Text blue, background blue
   init_pair(3, COLOR_GREEN, COLOR_BLACK);
   init_pair(4, COLOR_WHITE, COLOR_RED);
   init_pair(5, COLOR_WHITE, COLOR_BLACK);
+
   while (running) {
     bool key_pressed = get_input(&event);
     callback(key_pressed, &running, event, &state);
